@@ -28,6 +28,7 @@ import java.util.ArrayList;
 public class FormFragment extends Fragment {
 
     private EditText editText;
+    private Button button;
 
 
     public FormFragment() {
@@ -51,18 +52,20 @@ public class FormFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         editText = view.findViewById(R.id.editText);
-        view.findViewById(R.id.btnSave);
-        view.findViewById(R.id.btnSave).setOnClickListener(new View.OnClickListener() {
+        button = view.findViewById(R.id.btnSave);
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                save();
+                if (editText !=null) {
+                    save();
+                }
             }
         });
     }
     private void save() {
         String text = editText.getText().toString();
-        Log.d("FormFragment", "text = " + text);
-        Bundle bundle = new Bundle();
+       Toast.makeText(getContext(),"операция успешно добавлена ",Toast.LENGTH_LONG).show();
+       Bundle bundle = new Bundle();
         bundle.putString("text", text);
         getParentFragmentManager().setFragmentResult("rk_task",bundle);
         ((MainActivity) requireActivity()).closeFragment();

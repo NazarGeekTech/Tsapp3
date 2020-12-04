@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.taskapp.R;
+import com.example.taskapp.interfaces.OnitemClickaListener;
 import com.example.taskapp.ui.Title;
 
 import java.util.ArrayList;
@@ -33,14 +35,14 @@ public class HomeFragment extends Fragment  implements Title {
         super.onCreate(savedInstanceState);
         adapter = new TaskAdapter(this);
         ArrayList<String> list = new ArrayList<>();
-       list.add("Омурзак");
-       list.add("Махабат");
-       list.add("Атай");
-       list.add("Назар");
-       list.add("Айназик");
-       list.add("Эрмек");
-       list.add("Данияр");
-       adapter.addList(list);
+        list.add("Омурзак");
+        list.add("Махабат");
+        list.add("Атай");
+        list.add("Назар");
+        list.add("Айназик");
+        list.add("Эрмек");
+         list.add("Данияр");
+         adapter.addList(list);
 
     }
 
@@ -79,10 +81,23 @@ public class HomeFragment extends Fragment  implements Title {
     private void initList() {
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(requireContext(),DividerItemDecoration.VERTICAL));
+        adapter.setOnitemClickaListener(new OnitemClickaListener() {
+            @Override
+            public void onClick(int position) {
 
+            }
+
+            @Override
+            public void onLongClick(int position) {
+
+            }
+        });
 
     }
 
+    public void clicklisener(int adapterPosition) {
+                tost(adapterPosition);
+    }
     @Override
     public void tost(int position) {
         Toast.makeText(requireContext(),"позиция" + position, Toast.LENGTH_LONG).show();

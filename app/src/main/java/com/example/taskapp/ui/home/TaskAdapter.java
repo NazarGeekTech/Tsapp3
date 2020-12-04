@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.taskapp.R;
+import com.example.taskapp.interfaces.OnitemClickaListener;
 import com.example.taskapp.ui.Title;
 
 import java.util.ArrayList;
@@ -16,13 +17,15 @@ import java.util.ArrayList;
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
     private ArrayList<String> list = new ArrayList<>();
-    private Title title ;
 
+    private OnitemClickaListener onItemClickaListener;
 
-    public TaskAdapter(Title title) {
-        this.title = title;
+    private HomeFragment onclickposition;
+
+    public TaskAdapter (HomeFragment onclickposition)
+    {
+        this.onclickposition =  onclickposition;
     }
-
 
     @NonNull
     @Override
@@ -43,6 +46,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         return list.size();
     }
 
+    public void setOnitemClickaListener(OnitemClickaListener onItemClickaListener) {
+        this.onItemClickaListener= onItemClickaListener;
+    }
+
     public void addList(ArrayList<String> list) {
         this.list.addAll(0,list);
         notifyDataSetChanged();
@@ -53,20 +60,31 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
        notifyItemInserted(list.size() -1);
     }
 
-
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView textView;
-
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                   onItemClickaListener.onClick(getAdapterPosition());
+                }
+            });
             textView = itemView.findViewById(R.id.textView);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    title.tost(getAdapterPosition());
+                    onclickposition.clicklisener(getAdapterPosition());
 
+                }
+            });
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    onItemClickaListener.onLongClick(getAdapterPosition());
+                    return true;
                 }
             });
         }

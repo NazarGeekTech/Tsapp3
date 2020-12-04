@@ -13,7 +13,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.taskapp.R;
-import com.example.taskapp.ui.board.BoardAdapter;
 
 public class DashboardFragment extends Fragment {
 
@@ -24,7 +23,7 @@ public class DashboardFragment extends Fragment {
         dashboardViewModel =
                 new ViewModelProvider(this).get(DashboardViewModel.class);
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
-        final TextView textView = root.findViewById(R.id.viewPager2);
+        final TextView textView = root.findViewById(R.id.text_dashboard);
         dashboardViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
@@ -33,8 +32,5 @@ public class DashboardFragment extends Fragment {
         });
         return root;
     }
-    public void initView(){
-        BoardAdapter adapter = new BoardAdapter();
-
-    }
+    
 }
